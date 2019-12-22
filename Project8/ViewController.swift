@@ -24,12 +24,15 @@ class ViewController: UIViewController {
             scoreLabel.text = "Score: \(score)"
         }
     }
+    
+    var correct = 0
     var level = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         loadLevel()
+        print(solutions.count)
     }
     
     @objc func letterTapped(_ sender: UIButton) {
@@ -51,8 +54,8 @@ class ViewController: UIViewController {
 
             currentAnswer.text = ""
             score += 1
-
-            if score % 7 == 0 {
+            correct += 1
+            if correct % 7 == 0 {
                 let ac = UIAlertController(title: "Well done!", message: "Are you ready for the next level?", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Let's go!", style: .default, handler: levelUp))
                 present(ac, animated: true)
@@ -62,6 +65,7 @@ class ViewController: UIViewController {
             let ac = UIAlertController(title: "Wrong", message: "\(answerText) isn't corect answer", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "Close", style: .default))
             present(ac, animated: true)
+            score -= 1
         }
     }
 
